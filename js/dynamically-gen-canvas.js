@@ -35,23 +35,25 @@ window.onload = function() {
     currentCanvas.height = height;
     currentCanvas.width = 1;
     currentCanvas.setAttribute('id', id);
-    document.getElementById('canvas-container').appendChild(currentCanvas);
+    document
+      .getElementById('canvas-container')
+      .appendChild(currentCanvas)
+      .scrollIntoView();
     return id;
   }
 
   function generateData() {
     const data = [];
     for (let i = 0; i < height; i++) {
-      data.push(i / height);
+      const number = Math.floor(Math.random() * Math.floor(100));
+      data.push(number / height);
     }
     drawLine(data);
-    console.log(data);
   }
 
   function drawLine(dataArray) {
     const currentId = createCanvasAndReturnId();
     const currentCanvas = document.getElementById(currentId);
-    console.log(currentCanvas.width);
     const currentContext = currentCanvas.getContext('2d');
 
     const x = 0;
