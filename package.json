@@ -1,0 +1,11 @@
+{
+  "name": "canvaslab",
+  "version": "1.0.0",
+  "description": "Canvas labb",
+  "main": "main.js",
+  "scripts": {
+    "test": "-"
+  },
+  "author": "",
+  "license": "ISC"
+}
