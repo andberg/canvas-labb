@@ -2,7 +2,7 @@
 window.onload = function() {
   console.log('main');
 
-  const height = 200;
+  const height = 500;
   let idGen = 1;
 
   const addDataButton = document.getElementById('addDataBtn');

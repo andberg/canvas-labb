@@ -1,5 +1,6 @@
 #canvas-container {
-  height: 200px;
+  height: auto;
+  min-height: 200px;
   width: 100%;
   overflow-x: scroll;
   display: flex;
