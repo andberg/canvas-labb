@@ -1,5 +1,4 @@
 // The function gets called when the window is fully loaded
-
 window.onload = function() {
   console.log('main');
 
@@ -11,6 +10,9 @@ window.onload = function() {
 
   const stopMeasurmentBtn = document.getElementById('stopMeasurement');
   stopMeasurmentBtn.addEventListener('click', stopMeasurementInterval);
+
+  const readMeasurementBtn = document.getElementById('readDataFromFile');
+  readMeasurementBtn.addEventListener('click', readMeasurementData);
 
   let intervalFn;
 
@@ -48,6 +50,7 @@ window.onload = function() {
       const number = Math.floor(Math.random() * Math.floor(100));
       data.push(number / height);
     }
+    console.log(data);
     drawLine(data);
   }
 
@@ -60,6 +63,12 @@ window.onload = function() {
     for (var i = 0; i < dataArray.length; i++) {
       currentContext.fillStyle = 'rgba(1,1,1,' + dataArray[i] + ')';
       currentContext.fillRect(x, i, 1, 1);
+    }
+  }
+
+  function readMeasurementData() {
+    for (var i = 0; i < window.measuredData.length; i++) {
+      drawLine(window.measuredData[i]);
     }
   }
 };
