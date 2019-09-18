@@ -9,8 +9,17 @@ window.onload = function() {
   const addDataButton = document.getElementById('addDataBtn');
   addDataButton.addEventListener('click', addData);
 
+  const stopMeasurmentBtn = document.getElementById('stopMeasurement');
+  stopMeasurmentBtn.addEventListener('click', stopMeasurementInterval);
+
+  let intervalFn;
+
+  function stopMeasurementInterval() {
+    clearInterval(intervalFn);
+  }
+
   function addData() {
-    setInterval(() => {
+    intervalFn = setInterval(() => {
       generateData();
     }, 10);
   }
@@ -26,7 +35,7 @@ window.onload = function() {
     currentCanvas.height = height;
     currentCanvas.width = 1;
     currentCanvas.setAttribute('id', id);
-    document.body.appendChild(currentCanvas);
+    document.getElementById('canvas-container').appendChild(currentCanvas);
     return id;
   }
 

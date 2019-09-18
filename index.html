@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta lang="sv" />
+    <title>Canvas labb</title>
+    <script
+      type="text/javascript"
+      src="./js/dynamically-gen-canvas.js"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Pixel Drawing Example</title>
-    <script type="text/javascript" src="dynamically-gen-canvas.js"></script>
-</head>
-
-<body>
+  <body>
     <canvas id="viewport" width="10" height="100"></canvas>
-</body>
-<button id="addDataBtn">Add data</button>
-
+  </body>
+  <button id="addDataBtn">Start</button>
+  <button id="stopMeasurement">Stopp</button>
+  <div id="canvas-container"></div>
 </html>
