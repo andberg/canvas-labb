@@ -4,6 +4,7 @@ window.onload = function() {
 
   const height = 500;
   let idGen = 1;
+  const numberOfAllowedDOMElements = 1024;
 
   const addDataButton = document.getElementById('addDataBtn');
   addDataButton.addEventListener('click', addData);
@@ -13,6 +14,9 @@ window.onload = function() {
 
   const readMeasurementBtn = document.getElementById('readDataFromFile');
   readMeasurementBtn.addEventListener('click', readMeasurementData);
+
+  const addFilterBtn = document.getElementById('addFilter');
+  addFilterBtn.addEventListener('click', addFilter);
 
   let intervalFn;
 
@@ -50,7 +54,7 @@ window.onload = function() {
       const number = Math.floor(Math.random() * Math.floor(100));
       data.push(number / height);
     }
-    console.log(data);
+    //console.log(data);
     drawLine(data);
   }
 
@@ -64,11 +68,44 @@ window.onload = function() {
       currentContext.fillStyle = 'rgba(1,1,1,' + dataArray[i] + ')';
       currentContext.fillRect(x, i, 1, 1);
     }
+    deleteElements();
+  }
+
+  function deleteElements() {
+    const canvasElement = document.getElementsByTagName('canvas');
+    const maxNumberOfElements =
+      canvasElement.length === numberOfAllowedDOMElements;
+
+    if (maxNumberOfElements) {
+      canvasElement[0].remove();
+    }
   }
 
   function readMeasurementData() {
     for (var i = 0; i < window.measuredData.length; i++) {
       drawLine(window.measuredData[i]);
     }
+  }
+
+  function createOneCanvas() {
+    const canvasElement = document.getElementsByTagName('canvas');
+    const newCanvas = document.createElement('canvas');
+    newCanvas.height = height;
+    newCanvas.width = canvasElement.length;
+
+    const newContext = newCanvas.getContext('2d');
+    newContext.filter = 'opacity(0.5)';
+
+    for (var i = 0; i < canvasElement.length; i++) {
+      newContext.drawImage(canvasElement[i], i, 0);
+    }
+
+    console.log(newContext);
+    document.getElementById('canvas-filter').appendChild(newCanvas);
+  }
+
+  function addFilter() {
+    createOneCanvas();
+    console.log('add filter ');
   }
 };
