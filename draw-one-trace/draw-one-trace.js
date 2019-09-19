@@ -1,7 +1,7 @@
 // The function gets called when the window is fully loaded
 
 window.onload = function() {
-  console.log('main');
+  console.log('draw one trace');
   const canvas = document.getElementById('viewport');
   const context = canvas.getContext('2d');
 
@@ -17,7 +17,6 @@ window.onload = function() {
         data.push(i / height);
       }
       drawLine(data);
-      console.log(data);
     }
     generateData();
   }
@@ -27,12 +26,7 @@ window.onload = function() {
     let x = nextXPos;
 
     for (var i = 0; i < dataArray.length; i++) {
-      console.log('x', x);
-      console.log('y', i);
-      console.log('opacity', dataArray[i]);
-
       context.fillStyle = 'rgba(1,1,1,' + dataArray[i] + ')';
-      console.log(context.fillStyle);
       context.fillRect(x, i, 1, 1);
     }
   }

@@ -32,7 +32,6 @@ window.onload = function() {
       const number = Math.floor(Math.random() * Math.floor(100));
       dataArray.push(number / height);
     }
-    //console.log(data);
     drawLine(dataArray);
   }
 
