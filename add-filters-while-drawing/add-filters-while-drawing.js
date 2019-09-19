@@ -17,6 +17,8 @@ window.onload = function() {
 
   let intervalFn;
 
+  let withFilter = false;
+
   function stopMeasurementInterval() {
     clearInterval(intervalFn);
   }
@@ -51,7 +53,6 @@ window.onload = function() {
       const number = Math.floor(Math.random() * Math.floor(100));
       data.push(number / height);
     }
-    //console.log(data);
     drawLine(data);
   }
 
@@ -61,6 +62,10 @@ window.onload = function() {
     const currentContext = currentCanvas.getContext('2d');
 
     const x = 0;
+    if (withFilter) {
+      currentContext.filter = 'opacity(0.5)';
+    }
+
     for (var i = 0; i < dataArray.length; i++) {
       currentContext.fillStyle = 'rgba(1,1,1,' + dataArray[i] + ')';
       currentContext.fillRect(x, i, 1, 1);
@@ -79,6 +84,6 @@ window.onload = function() {
   }
 
   function addFilter() {
-    console.log('add filter ');
+    withFilter = !withFilter;
   }
 };

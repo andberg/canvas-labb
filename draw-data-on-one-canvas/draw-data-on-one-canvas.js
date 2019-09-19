@@ -17,6 +17,8 @@ window.onload = function() {
   const currentCanvas = document.getElementById('viewport');
   const currentContext = currentCanvas.getContext('2d');
 
+  let lastIndex = 0;
+
   function stopMeasurementInterval() {
     clearInterval(intervalFn);
   }
@@ -28,24 +30,24 @@ window.onload = function() {
   }
 
   function generateData() {
+    const data = [];
     for (let i = 0; i < height; i++) {
       const number = Math.floor(Math.random() * Math.floor(100));
-      dataArray.push(number / height);
+      //dataArray.push(number / height);
+      data.push(number / height);
     }
-    drawLine(dataArray);
+    drawLine(data);
   }
 
   function drawLine(dataArray) {
-    currentContext.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
+    //currentContext.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
     const numberOfLines = dataArray.length / height;
     console.log('number of lines', numberOfLines);
-    const dataArrayClone = Array.from(dataArray);
-    for (var j = 0; j < numberOfLines; j++) {
-      const linesData = dataArrayClone.splice(0, height);
-      for (var i = 0; i < linesData.length; i++) {
-        currentContext.fillStyle = 'rgba(1,1,1,' + linesData[i] + ')';
-        currentContext.fillRect(j, i, 1, 1);
-      }
+
+    for (var i = 0; i < dataArray.length; i++) {
+      currentContext.fillStyle = 'rgba(1,1,1,' + dataArray[i] + ')';
+      currentContext.fillRect(lastIndex, i, 1, 1);
     }
+    lastIndex = lastIndex + 1;
   }
 };
