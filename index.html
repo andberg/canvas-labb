@@ -5,20 +5,36 @@
     <meta lang="sv" />
     <title>Canvas labb</title>
     <script type="text/javascript" src="./js/data.js"></script>
+    <!--<script
+    type="text/javascript"
+    src="./js/draw-one-pixel.js"
+  ></script> -->
+
+    <!--<script
+    type="text/javascript"
+    src="./js/hard-coded-canvas-width.js"
+  ></script> -->
+
+    <!--<script
+      type="text/javascript"
+      src="./js/draw-data-on-one-canvas.js"
+    ></script> -->
+
     <script
       type="text/javascript"
       src="./js/dynamically-gen-canvas.js"
     ></script>
+
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
 
   <body>
-    <canvas id="viewport" width="10" height="100"></canvas>
+    <canvas id="viewport" width="1024" height="500"></canvas>
+    <button id="addDataBtn">Start</button>
+    <button id="stopMeasurement">Stopp</button>
+    <button id="readDataFromFile">View collected data</button>
+    <button id="addFilter">Add filter</button>
+    <div id="canvas-container"></div>
+    <div id="canvas-filter"></div>
   </body>
-  <button id="addDataBtn">Start</button>
-  <button id="stopMeasurement">Stopp</button>
-  <button id="readDataFromFile">View collected data</button>
-  <button id="addFilter">Add filter</button>
-  <div id="canvas-container"></div>
-  <div id="canvas-filter"></div>
 </html>
