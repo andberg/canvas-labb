@@ -10,6 +10,11 @@ window.onload = function() {
   const stopMeasurmentBtn = document.getElementById('stopMeasurement');
   stopMeasurmentBtn.addEventListener('click', stopMeasurementInterval);
 
+  const addFilterBtn = document.getElementById('addFilter');
+  addFilterBtn.addEventListener('click', addFilter);
+
+  let withFilters = false;
+
   let intervalFn;
 
   const dataArray = [];
@@ -43,11 +48,17 @@ window.onload = function() {
     //currentContext.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
     const numberOfLines = dataArray.length / height;
     console.log('number of lines', numberOfLines);
-
+    if (withFilters) {
+      currentContext.filter = 'opacity(0.5)';
+    }
     for (var i = 0; i < dataArray.length; i++) {
       currentContext.fillStyle = 'rgba(1,1,1,' + dataArray[i] + ')';
       currentContext.fillRect(lastIndex, i, 1, 1);
     }
     lastIndex = lastIndex + 1;
+  }
+
+  function addFilter() {
+    withFilters = !withFilters;
   }
 };
