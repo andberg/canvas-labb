@@ -11,7 +11,8 @@ window.onload = function() {
 
   let intervalFn;
 
-  const width = window.innerWidth;
+  const maxWidth = 300;
+  const width = maxWidth;
   const height = 500;
 
   const canvas = document.getElementById('canvas-image-data');
@@ -19,7 +20,6 @@ window.onload = function() {
   canvas.height = height;
 
   let currentX = 0;
-  const maxWidth = 300;
 
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = 'white';
@@ -27,14 +27,12 @@ window.onload = function() {
 
   function draw(traceData) {
     let imageData = ctx.getImageData(currentX, 0, 1, height);
+
     const dataFromImage = imageData.data;
 
-    console.log(currentX);
-
-    for (var i = 0; i < dataFromImage.length; i += 4) {
+    for (var i = 0; i < dataFromImage.length; i++) {
       dataFromImage[i] = traceData[i];
     }
-
     ctx.putImageData(imageData, currentX, 0);
   }
 
@@ -45,7 +43,7 @@ window.onload = function() {
   function addData() {
     intervalFn = setInterval(() => {
       generateData();
-    }, 50);
+    }, 10);
   }
 
   function generateData() {
@@ -56,8 +54,8 @@ window.onload = function() {
         traceData.push(int);
       }
     }
-    draw(traceData);
-    if (currentX === maxWidth) {
+
+    if (currentX === maxWidth - 1) {
       // shift everything to the left:
       var imageData = ctx.getImageData(
         1,
@@ -71,10 +69,15 @@ window.onload = function() {
     } else {
       currentX = currentX + 1;
     }
+    draw(traceData);
   }
 
   function getRandomInt() {
     // min and max included
-    return Math.floor(Math.random() * (255 - 0 + 1) + 0);
+    const int = Math.floor(Math.random() * (255 - 0 + 1) + 0);
+    if (int === 0) {
+      return 255;
+    }
+    return int;
   }
 };
