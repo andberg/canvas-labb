@@ -18,26 +18,24 @@ window.onload = function() {
   canvas.width = width;
   canvas.height = height;
 
+  let currentX = 0;
+  const maxWidth = 300;
+
   const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'black';
+  ctx.fillStyle = 'white';
   ctx.fillRect(0, 0, width, height);
 
-  function draw() {
-    let imageData = ctx.getImageData(0, 0, width, height);
+  function draw(traceData) {
+    let imageData = ctx.getImageData(currentX, 0, 1, height);
     const dataFromImage = imageData.data;
 
-    for (var j = 0; j< data.length; j++){
-        dataFromImage[j] = data[j]
-    }
-    // for (var i = 0; i < dataFromImage.length; i += 4) {
-    //   dataFromImage[i] = 255; // red
-    //   dataFromImage[i + 1] = 0; // green
-    //   dataFromImage[i + 2] = 0; // blue
-    //   dataFromImage[i + 3] = 255; // opavity
-    // }
-    console.log(imageData);
+    console.log(currentX);
 
-    ctx.putImageData(imageData, 0, 0);
+    for (var i = 0; i < dataFromImage.length; i += 4) {
+      dataFromImage[i] = traceData[i];
+    }
+
+    ctx.putImageData(imageData, currentX, 0);
   }
 
   function stopMeasurementInterval() {
@@ -47,224 +45,36 @@ window.onload = function() {
   function addData() {
     intervalFn = setInterval(() => {
       generateData();
-    }, 500);
+    }, 50);
   }
 
-  const data = [];
   function generateData() {
+    const traceData = [];
     for (let i = 0; i < height; i++) {
-      for (let j = 0; j < 4; j++) {
-        if (j < 3) {
-          data.push(0);
-        } else {
-          data.push(255);
-        }
+      const int = getRandomInt();
+      for (var j = 0; j < 4; j++) {
+        traceData.push(int);
       }
     }
-    console.log(data);
-    draw();
+    draw(traceData);
+    if (currentX === maxWidth) {
+      // shift everything to the left:
+      var imageData = ctx.getImageData(
+        1,
+        0,
+        ctx.canvas.width - 1,
+        ctx.canvas.height
+      );
+      ctx.putImageData(imageData, 0, 0);
+      // now clear the right-most pixels:
+      ctx.clearRect(ctx.canvas.width - 1, 0, 1, ctx.canvas.height);
+    } else {
+      currentX = currentX + 1;
+    }
+  }
+
+  function getRandomInt() {
+    // min and max included
+    return Math.floor(Math.random() * (255 - 0 + 1) + 0);
   }
 };
-
-const exampleData = [
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08,
-  0.15,
-  0.105,
-  0.115,
-  0.255,
-  0.09,
-  0.135,
-  0.135,
-  0.07,
-  0.205,
-  0.08
-];
